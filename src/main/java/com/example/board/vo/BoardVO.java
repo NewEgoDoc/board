@@ -9,7 +9,7 @@ public class BoardVO {
 	private String content; //varchar2(2000),
     private String regDate; //date default sysdate,
     private long cnt; //number(11)
-    
+    //
 	public BoardVO() {
 		
 	}
