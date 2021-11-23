@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:p="http://www.springframework.org/schema/p"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans https://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.3.xsd
+		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.3.xsd">
+	
+	<!-- Root Context: defines shared resources visible to all other web components -->
+		<context:component-scan base-package="com.example.board" />
+		<bean class="com.example.board.common.LogAdvice" id="logAdvice" />
+		<bean class="com.example.board.common.NewLogAdvice" id="newLogAdvice"></bean>
+		<bean class="com.example.board.common.AfterThrowingLog" id="afterThrowingLog"></bean>
+		
+		<aop:config>
+			<aop:pointcut expression="execution(* com.example.board..*Impl.*(..))" id="allPointCut"/>
+			<aop:pointcut expression="execution(* com.example.board.service.*Impl.get*(..))" id="getPointCut"/>
+			<aop:aspect ref="logAdvice" >
+				<aop:before method="pringLog" pointcut-ref="allPointCut"/>
+			</aop:aspect>
+			
+			<!-- <aop:aspect ref="afterThrowingLog">
+				<aop:after-throwing method="throwingPrint" pointcut-ref="getPointCut"/>
+			</aop:aspect> -->
+			
+			<aop:aspect ref="newLogAdvice">
+				<aop:after method="newLogPrint" pointcut-ref="getPointCut"/>
+			</aop:aspect>
+		</aop:config>
+</beans>
