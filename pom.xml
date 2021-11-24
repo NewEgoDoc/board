@@ -34,11 +34,11 @@
 		</dependency>
 				
 		<!-- AspectJ -->
-		<!-- <dependency>
+		<dependency>
 			<groupId>org.aspectj</groupId>
 			<artifactId>aspectjrt</artifactId>
 			<version>${org.aspectj-version}</version>
-		</dependency> -->	
+		</dependency>
 		
 		<!-- Logging -->
 		<dependency>
