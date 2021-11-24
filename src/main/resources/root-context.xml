@@ -10,28 +10,36 @@
 	
 	<!-- Root Context: defines shared resources visible to all other web components -->
 		<context:component-scan base-package="com.example.board" />
-		
-	<!-- 해당 빈들은 Service 객체로 등록이 가능!! Service Annotation을 부착해서 빈을 등록시켰다 -->	
-		<bean class="com.example.board.common.LogAdvice" id="logAdvice" />
+		<!-- <bean class="com.example.board.common.LogAdvice" id="logAdvice" />
 		<bean class="com.example.board.common.NewLogAdvice" id="newLogAdvice"></bean>
 		<bean class="com.example.board.common.AfterThrowingLog" id="afterThrowingLog"></bean>
-
-		<aop:aspectj-autoproxy  proxy-target-class="true"/>  
+		<bean class="com.example.board.common.RoundAdvice" id="roundAdvice"></bean> -->
+		
+		<bean class="com.example.board.common.TotalAdvice" id="totalAdvice"></bean>
+		
+		<aop:aspectj-autoproxy proxy-target-class="true"/>
 		
 		<aop:config>
 			<aop:pointcut expression="execution(* com.example.board..*Impl.*(..))" id="allPointCut"/>
-			<aop:pointcut expression="execution(* com.example.board.*.*Impl.get*(..))" id="getPointCut"/>
-			
-			<aop:aspect ref="logAdvice" >
-				<aop:before method="pringLog" pointcut-ref="allPointCut"/>
+			<aop:pointcut expression="execution(* com.example.board.service.*Impl.get*(..))" id="getPointCut"/>
+			<aop:aspect ref="totalAdvice" >
+				<aop:before method="beforeLog" pointcut-ref="allPointCut"/>
 			</aop:aspect>
 			
-			<aop:aspect ref="afterThrowingLog">
-				<aop:after-throwing method="throwingPrint" pointcut-ref="getPointCut"/>
+			<aop:aspect ref="totalAdvice">
+				<aop:after-throwing method="afterReturningLog" pointcut-ref="allPointCut"/>
 			</aop:aspect>
 			
-			<aop:aspect ref="newLogAdvice">
-				<aop:after method="newLogPrint" pointcut-ref="getPointCut"/>
+			<aop:aspect ref="totalAdvice">
+				<aop:after method="afterLog" pointcut-ref="allPointCut"/>
+			</aop:aspect>
+			
+			<aop:aspect ref="totalAdvice">
+				<aop:around method="roundLog" pointcut-ref="allPointCut"/>
+			</aop:aspect>
+			
+			<aop:aspect ref="totalAdvice">
+				<aop:after-returning method="afterReturningLog" pointcut-ref="allPointCut"/>
 			</aop:aspect>
 		</aop:config>
 </beans>

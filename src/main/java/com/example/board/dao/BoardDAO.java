@@ -86,7 +86,7 @@ public class BoardDAO {
 	}
 	
 	private final String BOARD_GET = "select * from board where seq = ?";
-	public BoardVO getBoard(BoardVO board) throws NullPointerException {
+	public BoardVO getBoard(BoardVO board) {
 		BoardVO vo = null;
 		//System.out.println("==> JDBC로 getBoard() 기능 처리" );
 		
