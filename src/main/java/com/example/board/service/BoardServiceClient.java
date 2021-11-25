@@ -25,7 +25,7 @@ public class BoardServiceClient {
 		//boardService.insertBoard(board);
 		
 		List<BoardVO> boardList = boardService.getBoardList(board);
-		System.out.println(boardList);
+		System.out.println("jyhgjhgjhgjh"+boardList);
 		for(BoardVO b:boardList) {
 			System.out.println(b);
 		}

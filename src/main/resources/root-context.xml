@@ -17,6 +17,21 @@
 		
 		<bean class="com.example.board.common.TotalAdvice" id="totalAdvice"></bean>
 		
+		<bean class="com.zaxxer.hikari.HikariConfig" id="hikariConfig">
+			<property name="driverClassName" value="oracle.jdbc.OracleDriver" />
+			<property name="jdbcUrl" value="jdbc:oracle:thin:@192.168.150.55:1521:xe" />
+			<property name="username" value="byeon" />
+			<property name="password" value="byeon" />
+		</bean>
+		
+		<bean class="com.zaxxer.hikari.HikariDataSource" id="dataSource">
+			<constructor-arg ref="hikariConfig" />
+		</bean>
+		
+		<bean class="org.springframework.jdbc.core.JdbcTemplate" id="jdbcTemplate">
+			<property name="dataSource" ref="dataSource"></property>
+		</bean>
+		
 		<aop:aspectj-autoproxy proxy-target-class="true"/>
 		
 		<aop:config>
