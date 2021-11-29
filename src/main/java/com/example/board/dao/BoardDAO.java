@@ -29,19 +29,13 @@ public class BoardDAO {
 	RowMapper<BoardVO> mapper = (rs, count) -> {
 		BoardVO board = new BoardVO();
 		board.setCnt(rs.getLong("Cnt"));
+		board.setSeq(rs.getLong("Seq"));
+        board.setTitle(rs.getString("Title"));
+        board.setContent(rs.getString("Content"));
+        board.setWriter(rs.getString("Writer"));
+        board.setRegDate(rs.getString("RegDate"));
 		return 	board;
-	
 	};
-
-		(new BoardVO(
-            rs.getLong("Seq"),
-            rs.getString("Title"),
-            rs.getString("Content"),
-            rs.getString("Writer"),
-            rs.getString("RegDate"),
-            rs.getLong("Cnt")
-          ));
-	
 	private final String BOARD_INSERT = "insert into board(seq, title,writer,content,cnt) values(  (select nvl(max(seq),0) + 1 from board),?,?,?,0)";
 //	public void insertBoard(BoardVO board) {
 //		//System.out.println("==> JDBC로 insertBoard() 기능 처리" );
